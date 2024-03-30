@@ -14,6 +14,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="./css/main_screen.css">
+    <link rel="stylesheet" href="./css/loading.css">
 
     <title>domi 수업도구</title>
 </head>
@@ -24,12 +25,20 @@
         
         <article class="main-code">
             <input id="main-code-input" type="number" placeholder="수업코드를 입력하세요.">
-            <button id="main-code-join">입장</button>
+            <button id="main-code-join" disabled>입장</button>
         </article>
+        <span id="main-create-class">수업 만들기</span>
 
         <!-- <div class="line"></div> -->
         <img class="logo" src="https://domi.kr/img/wh_logo.png">
         <span class="credit">ⓒ 2024. domi All rights reserved.</span>
+
+        <div id="main-loading" class="backBlack" style="display: none;">
+            <div class="box">
+                <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                <div class="text">입장 하는 중...</div>
+            </div>
+        </div>
     </section>
 
 </body>

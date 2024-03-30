@@ -4,9 +4,7 @@ const websocket = require("websocket");
 global.TriggerEvent = {};
 const app = global.express = express();
 
-app.get("/", (req, res) => {
-    res.send("hello world!");
-});
+require("./modules/roomCreate.js");
 
 const server = app.listen(3000, () => console.log("server on port 3000"));
 
@@ -74,7 +72,7 @@ function RegisterUser(connection, roomID, pass) {
             return;
         }
 
-        if (data.type !== undefined) return;
+        if (data.type === undefined) return;
         const callback = global.TriggerEvent[data.type];
         if (typeof callback !== "function") {
             console.error(`not found event: ${data.type}`);

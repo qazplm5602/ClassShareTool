@@ -82,12 +82,14 @@
     flex-grow: 1;
     
     padding: 0 10px;
+    height: 0;
     padding-bottom: 15px;
 }
 
 .class_screen > main > .video_container {
     flex-grow: 1;
     /* aspect-ratio: 16 / 9; */
+    height: 100%;
 
     border-radius: 10px;
 }

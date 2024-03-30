@@ -10,9 +10,9 @@ domiSocket.addEvent = function(type, cb) {
 
 domiSocket.connect = function(id, password) {
     return new Promise(reslove => {
-        this.ws = new WebSocket(`${_CONFIG}`);
+        this.ws = new WebSocket(`${_CONFIG.ws}`);
 
-        this.ws.onopen = function() {
+        this.ws.onopen = () => {
             // reslove({result: true});
             this.ws.send(JSON.stringify(`${id}|${(password || '')}`));
         }
@@ -31,8 +31,8 @@ domiSocket.connect = function(id, password) {
             reslove({result: false});
         }
         
-        this.ws.close = function(code, reason) {
-            reslove({result: false, code, reason});
+        this.ws.onclose = function(event) {
+            reslove({result: false, code: event.code, reason: event.reason});
         }
     });
 }

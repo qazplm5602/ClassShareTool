@@ -49,7 +49,10 @@ $(function() {
 
 
     //////////////////////////////////////////// 방 입장
-    function roomJoin() {
-
+    async function roomJoin(id, password) {
+        $("#main-loading").fadeIn(250, 'swing');
+    
+        const response = await domiSocket.connect(id, password);
+        console.log(response);
     }
 });

@@ -28,6 +28,19 @@ $(function() {
         screenStream.destory();
         screenStream.removeDisableEvent(onScreenDisable);
     });
+    $("#main-camera-view-create").click(function() {
+        if (screenStream.stream === undefined) return;
+
+        $("#main-loading").fadeIn(250, 'swing');
+
+        $.get(`${_CONFIG.api}api/room/create`).
+        done(function(data) {
+            roomJoin(data.id, data.password);
+        })
+        .fail(function() {
+            console.log("error");
+        });
+    });
     $("#main-camera-view .screen-error").click(RequestScreen);
 
     function RequestScreen() {
@@ -53,6 +66,12 @@ $(function() {
         $("#main-loading").fadeIn(250, 'swing');
     
         const response = await domiSocket.connect(id, password);
-        console.log(response);
+
+        if (!response.result) {
+            $("#main-error-text").text("서버에 연결할 수 없습니다.");
+            return;
+        }
+
+                
     }
 });

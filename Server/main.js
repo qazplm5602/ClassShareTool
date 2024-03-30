@@ -86,4 +86,6 @@ function RegisterUser(connection, roomID, pass) {
         roomManager.removePlayer(roomID, playerID);
         console.log("connection closed", resCode, desc);
     });
+
+    connection.sendUTF("success"); // 인증 성공 메세지
 }

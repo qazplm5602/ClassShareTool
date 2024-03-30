@@ -15,8 +15,21 @@ screenStream.request = async function() {
         return false;
     }
 
+    // 비활 이벤트
+    stream.getVideoTracks()[0].onended = () => {
+        this._disableEvent.forEach(event => event());
+        this.stream = undefined;
+    }
+
     this.stream = stream;
     return true;
+}
+
+screenStream.destory = function() {
+    if (this.stream === undefined) return;
+    this.stream.getTracks().forEach(track => track.stop());
+    this._disableEvent.forEach(event => event());
+    this.stream = undefined;
 }
 
 screenStream.addDisableEvent = function(event) {

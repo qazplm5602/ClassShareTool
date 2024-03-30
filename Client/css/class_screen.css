@@ -1,0 +1,75 @@
+.class_screen {
+    position: fixed;
+    
+    width: 100%;
+    height: 100%;
+
+    top: 0;
+    left: 0;
+
+    background: radial-gradient(ellipse at bottom, #0a250c 0%, #0c0d13 100%);
+}
+
+.class_screen > header {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 15px 10px;
+}
+
+.class_screen > header > .left {
+    display: flex;
+}
+
+.class_screen > header > .left > .logo {
+    width: 50px;
+    height: 50px;
+}
+
+.class_screen > header > .left > section > .title {
+    font-size: 28px;
+    font-weight: 800;
+
+    color: rgb(240, 240, 240);
+    text-shadow: 0 0 10px rgba(240, 240, 240, 0.5);
+}
+
+.class_screen > header > .left > section > .code {
+    color: gray;
+    line-height: 14px;
+    
+    font-size: 15px;
+}
+
+.class_screen > header > .left > section > .code > span {
+    font-weight: 600;
+}
+
+.class_screen > header > .right > #class-exit-button {
+    width: 50px;
+    height: 50px;
+
+    background: none;
+    border: none;
+    border-radius: 50%;
+
+    margin-top: -10px;
+
+    padding: 13px;
+
+    color: rgb(240, 240, 240);
+    font-size: 20px;
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+
+.class_screen > header > .right > #class-exit-button > img {
+    width: 100%;
+    height: 100%;
+}
+
+.class_screen > header > .right > #class-exit-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}

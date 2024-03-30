@@ -17,13 +17,14 @@
     <!-- CSS -->
     <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="./css/main_screen.css">
+    <link rel="stylesheet" href="./css/class_screen.css">
     <link rel="stylesheet" href="./css/loading.css">
 
     <title>domi 수업도구</title>
 </head>
 <body>
     
-    <section class="main">
+    <section class="main" style="display: none;">
         <div class="title">도미 수업도구</div>
         
         <article class="main-code">
@@ -64,5 +65,20 @@
         </div>
     </section>
 
+    <section class="class_screen">
+        <header>
+            <div class="left">
+                <img class="logo" src="https://domi.kr/img/domi_logo.png">
+                <section>
+                    <div class="title">도미 수업도구</div>
+                    <div class="code">수업코드: <span id="class-code">9999</span></div>
+                </section>
+            </div>
+
+            <div class="right">
+                <button id="class-exit-button"><img src="./assets/exit-svgrepo.svg"></button>
+            </div>
+        </header>
+    </section>
 </body>
 </html>

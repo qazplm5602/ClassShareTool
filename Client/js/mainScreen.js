@@ -46,4 +46,10 @@ $(function() {
         $("#main-camera-view .screen-error").show();
         $("#main-camera-view-create").attr("disabled", true);
     }
+
+
+    //////////////////////////////////////////// 방 입장
+    function roomJoin() {
+
+    }
 });

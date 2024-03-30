@@ -265,3 +265,13 @@
     background-color: rgba(255, 255, 255, 0.5);
     cursor: not-allowed;
 }
+
+#main-error-text {
+    text-decoration-line: initial;
+    color: #e14b4b;
+    font-weight: 500;
+    cursor: initial;
+    font-size: 14px;
+
+    margin-top: 5px;
+}

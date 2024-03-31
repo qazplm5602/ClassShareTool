@@ -61,18 +61,17 @@ $(function() {
         $("#main-camera-view-create").attr("disabled", true);
     }
 
-
     //////////////////////////////////////////// 방 입장
     async function roomJoin(id, password) {
         $("#main-loading").fadeIn(250, 'swing');
     
         const response = await domiSocket.connect(id, password);
-
+    
         if (!response.result) {
             $("#main-error-text").text("서버에 연결할 수 없습니다.");
             return;
         }
-
+    
         domiSocket.send("class.init");
     }
 });

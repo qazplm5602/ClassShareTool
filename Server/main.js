@@ -12,6 +12,7 @@ app.use(function(req, res, next) {
 
 require("./modules/roomCreate.js");
 require("./modules/classRoom.js");
+require("./modules/classRTC.js");
 
 const server = app.listen(3000, () => console.log("server on port 3000"));
 
@@ -89,7 +90,7 @@ function RegisterUser(connection, roomID, pass) {
             return;   
         }
         
-        callback(roomID, playerID, data);
+        callback(roomID, playerID, data.data);
     });
 
     connection.on("close", (resCode, desc) => {

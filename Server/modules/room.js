@@ -3,6 +3,7 @@ class RoomClass {
     password = undefined;
     
     playerCount = 0;
+    ownerId = -1;
     players = {};
 
     files = {};
@@ -38,6 +39,9 @@ exports.addPlayer = function(roomID, connection, perm) {
 
     const myIdx = room.playerCount++;
     room.players[myIdx] = { ws: connection, owner: perm };
+
+    if (perm) // 주인장 아이디 저장
+        room.ownerId = myIdx;
 
     return myIdx;
 }

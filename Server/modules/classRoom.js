@@ -7,6 +7,7 @@ TriggerEvent["class.init"] = function(roomID, playerID) {
     if (player === undefined) return;
     
     player.ws.send("class.init.result", {
+        room: roomID,
         owner: player.owner,
         files: []
     });

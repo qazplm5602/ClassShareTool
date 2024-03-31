@@ -38,7 +38,7 @@ domiSocket.connect = function(id, password) {
 }
 
 domiSocket.eventInit = function() {
-    this.ws.onmessage = function(event) {
+    this.ws.onmessage = (event) => {
         let data;
         try {
             data = JSON.parse(event.data);
@@ -53,7 +53,7 @@ domiSocket.eventInit = function() {
             return;   
         }
         
-        callback(data);
+        callback(data.data);
     }
 
     this.ws.onclose = function() {

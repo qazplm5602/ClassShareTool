@@ -18,7 +18,32 @@ domiSocket.addEvent("class.init.result", function(data) {
         peer.on("signal", data => {
             domiSocket.send("webrtc.owner.signal", data);
         });
+        peer.on("stream", stream => {
+            $("#class-video")[0].srcObject = stream;
+            $("#class-video")[0].play();
+        });
     }
 
     $(".class_screen").fadeIn(300);
+});
+
+// 보는사람 -> owner
+domiSocket.addEvent("webrtc.request.call", function(data) {
+    let peer = classScreen.peers[data.id];
+    if (peer === undefined) {
+        peer = classScreen.peers[data.id] = new SimplePeer({
+            stream: screenStream.stream
+        });
+        
+        peer.on("signal", signal => {
+            domiSocket.send("webrtc.caller.signal", {id: data.id, signal});
+        });
+    }
+
+    peer.signal(data.signal);
+});
+
+// owner -> 보는사람 한명
+domiSocket.addEvent("webrtc.request.owner", function(signal) {
+    classScreen.peer.signal(signal);
 });

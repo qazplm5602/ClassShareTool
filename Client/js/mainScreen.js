@@ -73,6 +73,6 @@ $(function() {
             return;
         }
 
-                
+        domiSocket.send("class.init");
     }
 });

@@ -5,6 +5,8 @@ class RoomClass {
     playerCount = 0;
     players = {};
 
+    files = {};
+
     constructor(id) {
         this.id = id;
     }

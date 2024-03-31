@@ -14,7 +14,7 @@ domiSocket.connect = function(id, password) {
 
         this.ws.onopen = () => {
             // reslove({result: true});
-            this.ws.send(JSON.stringify(`${id}|${(password || '')}`));
+            this.ws.send(`${id}|${(password || '')}`);
         }
 
         this.ws.onmessage = (event) => {
@@ -68,7 +68,13 @@ domiSocket.eventInit = function() {
         console.log("socket open");
     }
 
-    this.ws.send = function(type, data) {
-        this.send(JSON.stringify(type, data));
-    }
+    // this.ws.send = function(type, data) {
+    //     this.send(JSON.stringify(type, data));
+    // }
+}
+
+domiSocket.send = function(type, data) {
+    if (this.ws === undefined) throw new Error("socket이 연결되어 있지 않습니다.");
+
+    this.ws.send(JSON.stringify({type, data}));
 }

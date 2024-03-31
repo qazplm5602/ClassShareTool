@@ -11,6 +11,7 @@ app.use(function(req, res, next) {
 });
 
 require("./modules/roomCreate.js");
+require("./modules/classRoom.js");
 
 const server = app.listen(3000, () => console.log("server on port 3000"));
 
@@ -48,6 +49,9 @@ wsServer.on("request", (req) => {
         clearTimeout(authTimer);
         connection.off("message", onMessage);
         connection.off("close", onClose);
+        connection.send = function(type, data) {
+            this.sendUTF(JSON.stringify({type, data}));
+        }
 
         RegisterUser(connection, roomID, password);
     }

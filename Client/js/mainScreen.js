@@ -32,6 +32,7 @@ $(function() {
         if (screenStream.stream === undefined) return;
 
         $("#main-loading").fadeIn(250, 'swing');
+        screenStream.removeDisableEvent(onScreenDisable);
 
         $.get(`${_CONFIG.api}api/room/create`).
         done(function(data) {

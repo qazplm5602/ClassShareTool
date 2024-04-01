@@ -13,6 +13,7 @@ app.use(function(req, res, next) {
 require("./modules/roomCreate.js");
 require("./modules/classRoom.js");
 require("./modules/classRTC.js");
+require("./modules/roomFile.js");
 
 const server = app.listen(3000, () => console.log("server on port 3000"));
 

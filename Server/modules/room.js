@@ -6,7 +6,23 @@ class RoomClass {
     ownerId = -1;
     players = {};
 
-    files = {};
+    files = {
+        "domi.js" : {
+            data: new ArrayBuffer(2)
+        },
+        "testFolder" : {
+            "README.md": {
+                data: new ArrayBuffer(2)
+            },
+            "helloooo": {}
+        }
+    };
+    fileIndx = { // 0: 파일 1: 폴더
+        "domi.js": 0,
+        "testFolder": 1,
+        "testFolder/README.md": 0,
+        "testFolder/helloooo": 1,
+    };
 
     constructor(id) {
         this.id = id;

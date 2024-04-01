@@ -24,6 +24,7 @@ domiSocket.addEvent("class.init.result", function(data) {
         });
     }
 
+    domiSocket.send("file.request.directory", "");
     $(".class_screen").fadeIn(300);
 });
 

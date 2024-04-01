@@ -1,6 +1,6 @@
 const classScreen = {
     peer: undefined, // 방장과 연결된것
-    peers: {} // 화면 보고있는사람들 (내가 방장일때)
+    peers: {}, // 화면 보고있는사람들 (내가 방장일때)
 }
 
 domiSocket.addEvent("class.init.result", function(data) {

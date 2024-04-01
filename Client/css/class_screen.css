@@ -162,3 +162,93 @@
 
     word-break: break-all;
 }
+
+/* 코드 표시 */
+.class_screen > .code_window > .box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    padding: 20px;
+    background-color: rgb(30, 30, 30);
+
+    width: 800px;
+    height: 500px;
+    border-radius: 10px;
+    
+    display: flex;
+    flex-direction: column;
+}
+
+.class_screen > .code_window > .box > header {
+    display: flex;
+}
+
+.class_screen > .code_window > .box > header > .title {
+    font-size: 30px;
+    color: white;
+    
+    margin: 0;
+    margin-right: auto;
+}
+
+.class_screen > .code_window > .box > header > button {
+    position: relative;
+
+    width: 50px;
+    height: 50px;
+
+    background: none;
+    border: none;
+    border-radius: 50%;
+
+    margin-top: -5px;
+    padding: 10px;
+
+    cursor: pointer;
+}
+
+.class_screen > .code_window > .box > header > button:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.class_screen > .code_window > .box > header > button > span {
+    position: absolute;
+
+    bottom: -5px;
+    left: 50%;
+    transform: translate(-50%, 100%);
+
+    width: max-content;
+
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+
+    backdrop-filter: blur(3px);
+
+    border-radius: 5px;
+
+    padding: 5px 8px;
+    
+    display: none;
+}
+
+.class_screen > .code_window > .box > header > button:hover > span {
+    display: block;
+}
+
+.class_screen > .code_window > .box > header > button > img {
+    width: 25px;
+    height: 25px;
+}
+
+.class_screen > .code_window > .box > pre {
+    flex-grow: 1;
+
+    margin: 0;
+    margin-top: 8px;
+    
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.05);
+}

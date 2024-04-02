@@ -62,6 +62,32 @@ exports.createDirectory = function(roomID, path) {
   return true;
 };
 
+exports.existDirectory = function(path) {
+  const room = roomManager.getRoom(roomID);
+  if (room === undefined) return false;
+
+  return room.fileIndx[path] === 1;
+};
+
+exports.getFile = function(roomID, path) {
+  const room = roomManager.getRoom(roomID);
+  if (room === undefined || room.fileIndx[path] !== 0) return;
+
+  let lastFolder;
+  let fileName = path;
+
+  if (path.lastIndexOf("/") !== -1) {
+    lastFolder = path.substring(0, path.lastIndexOf("/"));
+    fileName = path.substring(path.lastIndexOf("/") + 1);
+  }
+
+  let rootAddress = room.files;
+  if (lastFolder !== undefined)
+    lastFolder.split("/").forEach(folder => rootAddress = rootAddress[folder]);
+
+  return rootAddress[fileName].data;
+};
+
 // TEST
 (function() {
   const [id, password] = roomManager.createRoom();
@@ -71,5 +97,12 @@ exports.createDirectory = function(roomID, path) {
   console.log(exports.createDirectory(id, "domiFolder"));
   console.log(exports.createFile(id, "domiFolder/hello.cs", Buffer.from("test!!!")));
   console.log(exports.createFile(id, "testFolder/hello.cs", Buffer.from("test!!!")));
-  console.log(room.files, room.fileIndx);
+
+  console.log("---------------");
+  console.log(exports.getFile(id, "test.txt"));
+  console.log(exports.getFile(id, "domiFolder/hello.cs"));
+  console.log(exports.getFile(id, "domiFolder/hdello.cs"));
+  console.log(exports.getFile(id, "hdello.cs"));
+
+  // console.log(room.files, room.fileIndx);
 })();

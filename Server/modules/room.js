@@ -14,7 +14,11 @@ class RoomClass {
             "README.md": {
                 data: new ArrayBuffer(2)
             },
-            "helloooo": {}
+            "helloooo": {
+                "안녕.txt": { data: new ArrayBuffer(2) },
+                "하세요.txt": { data: new ArrayBuffer(2) },
+                "domi.lua": { data: new ArrayBuffer(2) },
+            }
         }
     };
     fileIndx = { // 0: 파일 1: 폴더
@@ -22,6 +26,9 @@ class RoomClass {
         "testFolder": 1,
         "testFolder/README.md": 0,
         "testFolder/helloooo": 1,
+        "testFolder/helloooo/안녕.txt": 0,
+        "testFolder/helloooo/하세요.txt": 0,
+        "testFolder/helloooo/domi.lua": 0,
     };
 
     constructor(id) {

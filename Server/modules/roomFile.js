@@ -88,6 +88,63 @@ exports.getFile = function(roomID, path) {
   return rootAddress[fileName].data;
 };
 
+exports.removeFile = function(roomID, path) {
+  const room = roomManager.getRoom(roomID);
+  if (room === undefined || room.fileIndx[path] !== 0) return false;
+
+  let lastFolder;
+  let fileName = path;
+
+  if (path.lastIndexOf("/") !== -1) {
+    lastFolder = path.substring(0, path.lastIndexOf("/"));
+    fileName = path.substring(path.lastIndexOf("/") + 1);
+  }
+
+  delete room.fileIndx[path];
+
+  let rootAddress = room.files;
+  if (lastFolder !== undefined)
+    lastFolder.split("/").forEach(folder => rootAddress = rootAddress[folder]);
+
+  delete rootAddress[fileName];
+
+  return true;
+};
+
+exports.removeDirectory = function(roomID, path) {
+  const room = roomManager.getRoom(roomID);
+  if (room === undefined || room.fileIndx[path] !== 1) return false;
+
+  let lastFolder;
+  let folderName = path;
+
+  if (path.lastIndexOf("/") !== -1) {
+    lastFolder = path.substring(0, path.lastIndexOf("/"));
+    folderName = path.substring(path.lastIndexOf("/") + 1);
+  }
+
+  let rootAddress = room.files;
+  if (lastFolder !== undefined)
+    lastFolder.split("/").forEach(folder => rootAddress = rootAddress[folder]);
+
+  for (const key in rootAddress[folderName]) {
+    const myPath = lastFolder ? `${lastFolder}/${folderName}/${key}` : `${folderName}/${key}`;
+    const myState = room.fileIndx[myPath];
+    
+    if (myState === 1) {
+      exports.removeDirectory(roomID, myPath); // 그 안에 있는 파일들도 다 삭제해 ㄹㅇ
+    } else {
+      delete room.fileIndx[myPath]; // 인덱싱된거 삭제
+    }
+    // if (exports.removeDirectory(roomID, `${lastFolder}/${folderName}/`))
+  }
+
+  delete rootAddress[folderName];
+  delete room.fileIndx[lastFolder ? `${lastFolder}/${folderName}` : folderName];
+
+  return true;
+};
+
 // TEST
 (function() {
   const [id, password] = roomManager.createRoom();
@@ -104,5 +161,10 @@ exports.getFile = function(roomID, path) {
   console.log(exports.getFile(id, "domiFolder/hdello.cs"));
   console.log(exports.getFile(id, "hdello.cs"));
 
-  // console.log(room.files, room.fileIndx);
+  console.log("---------------");
+  // console.log(exports.removeFile(id, "testFolder/README.md"));
+  // console.log(exports.removeDirectory(id, "testFolder"));
+
+
+  console.log(room.files, room.fileIndx);
 })();

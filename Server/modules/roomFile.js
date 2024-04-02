@@ -88,6 +88,26 @@ exports.getFile = function(roomID, path) {
   return rootAddress[fileName].data;
 };
 
+// path '/' 이면 root임
+exports.getDirectory = function(roomID, path) {
+  const room = roomManager.getRoom(roomID);
+  if (room === undefined || (path !== "/" && room.fileIndx[path] !== 1)) return false;
+
+  let rootAddress = room.files;
+  if (path !== "/")
+    path.split("/").forEach(folder => rootAddress = rootAddress[folder]);
+
+  const result = [];
+
+  for (const name in rootAddress) {
+    const state = room.fileIndx[`${path === "/" ? "" : `${path}/`}${name}`];
+    if (state !== undefined)
+      result.push({name, directory: state === 1});
+  }
+
+  return result;
+}
+
 exports.removeFile = function(roomID, path) {
   const room = roomManager.getRoom(roomID);
   if (room === undefined || room.fileIndx[path] !== 0) return false;
@@ -165,6 +185,11 @@ exports.removeDirectory = function(roomID, path) {
   // console.log(exports.removeFile(id, "testFolder/README.md"));
   // console.log(exports.removeDirectory(id, "testFolder"));
 
+  console.log(exports.getDirectory(id, "/"));
+  console.log(exports.getDirectory(id, "testFolder"));
+  console.log(exports.getDirectory(id, "testFolder/helloooo"));
+  console.log(exports.getDirectory(id, "testFolder/hellooooasdad"));
 
-  console.log(room.files, room.fileIndx);
+
+  // console.log(room.files, room.fileIndx);
 })();

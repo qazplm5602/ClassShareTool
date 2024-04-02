@@ -24,7 +24,7 @@ domiSocket.addEvent("class.init.result", function(data) {
         });
     }
 
-    domiSocket.send("file.request.directory", "");
+    domiSocket.send("file.request.directory", "testFolder/helloooo");
     $(".class_screen").fadeIn(300);
 });
 

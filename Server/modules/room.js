@@ -15,9 +15,11 @@ class RoomClass {
                 data: new ArrayBuffer(2)
             },
             "helloooo": {
-                "안녕.txt": { data: new ArrayBuffer(2) },
-                "하세요.txt": { data: new ArrayBuffer(2) },
-                "domi.lua": { data: new ArrayBuffer(2) },
+                "c안녕.txt": { data: new ArrayBuffer(2) },
+                "b하세요.txt": { data: new ArrayBuffer(2) },
+                "adomi.lua": { data: new ArrayBuffer(2) },
+                "btestfolder": { },
+                "ctestfolder": { },
             }
         }
     };
@@ -26,9 +28,11 @@ class RoomClass {
         "testFolder": 1,
         "testFolder/README.md": 0,
         "testFolder/helloooo": 1,
-        "testFolder/helloooo/안녕.txt": 0,
-        "testFolder/helloooo/하세요.txt": 0,
-        "testFolder/helloooo/domi.lua": 0,
+        "testFolder/helloooo/c안녕.txt": 0,
+        "testFolder/helloooo/b하세요.txt": 0,
+        "testFolder/helloooo/adomi.lua": 0,
+        "testFolder/helloooo/btestfolder": 1,
+        "testFolder/helloooo/ctestfolder": 1,
     };
 
     constructor(id) {

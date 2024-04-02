@@ -24,5 +24,7 @@ domiSocket.addEvent("file.directory.result", function(data) {
         } else return 0;
     });
 
-    console.log(data.files);
+    $.each(data.files, function(i, v) {
+        
+    });
 });

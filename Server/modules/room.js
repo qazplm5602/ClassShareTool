@@ -1,3 +1,4 @@
+const fs = require("fs");
 class RoomClass {
     id = undefined;
     password = undefined;
@@ -7,32 +8,32 @@ class RoomClass {
     players = {};
 
     files = {
-        "domi.js" : {
-            data: new ArrayBuffer(2)
-        },
-        "testFolder" : {
-            "README.md": {
-                data: new ArrayBuffer(2)
-            },
-            "helloooo": {
-                "c안녕.txt": { data: Buffer.from("testtest") },
-                "b하세요.txt": { data: Buffer.from("testtest") },
-                "adomi.lua": { data: Buffer.from("testtest") },
-                "btestfolder": { },
-                "ctestfolder": { },
-            }
-        }
+        // "domi.js" : {
+        //     data: new ArrayBuffer(2)
+        // },
+        // "testFolder" : {
+        //     "README.md": {
+        //         data: new ArrayBuffer(2)
+        //     },
+        //     "helloooo": {
+        //         "c안녕.txt": { data: Buffer.from("testtest") },
+        //         "b하세요.txt": { data: Buffer.from("testtest") },
+        //         "adomi.lua": { data: Buffer.from("testtest") },
+        //         "btestfolder": { },
+        //         "ctestfolder": { },
+        //     }
+        // }
     };
     fileIndx = { // 0: 파일 1: 폴더
-        "domi.js": 0,
-        "testFolder": 1,
-        "testFolder/README.md": 0,
-        "testFolder/helloooo": 1,
-        "testFolder/helloooo/c안녕.txt": 0,
-        "testFolder/helloooo/b하세요.txt": 0,
-        "testFolder/helloooo/adomi.lua": 0,
-        "testFolder/helloooo/btestfolder": 1,
-        "testFolder/helloooo/ctestfolder": 1,
+        // "domi.js": 0,
+        // "testFolder": 1,
+        // "testFolder/README.md": 0,
+        // "testFolder/helloooo": 1,
+        // "testFolder/helloooo/c안녕.txt": 0,
+        // "testFolder/helloooo/b하세요.txt": 0,
+        // "testFolder/helloooo/adomi.lua": 0,
+        // "testFolder/helloooo/btestfolder": 1,
+        // "testFolder/helloooo/ctestfolder": 1,
     };
 
     constructor(id) {
@@ -48,6 +49,7 @@ exports.createRoom = function() {
 
     // 비밀번호 지정
     room.password = randomStr(10);
+    fs.mkdirSync(`./temp/${id}`);
 
     return [id, room.password];
 }

@@ -1,3 +1,4 @@
+const fs = require("fs");
 const roomManager = require("./room.js");
 
 exports.createFile = function(roomID, path /* 이 경로는 파일이름까지 포함하고 있음 */, buffer) {
@@ -28,8 +29,9 @@ exports.createFile = function(roomID, path /* 이 경로는 파일이름까지 �
   }
   
   rootAddress[fileName] = {
-    data: buffer
+    // data: buffer
   }
+  fs.writeFileSync(`./temp/${roomID}/${path}`, buffer);
 
   return true;
 };
@@ -58,6 +60,7 @@ exports.createDirectory = function(roomID, path) {
     lastFolder.split("/").forEach(folder => rootAddress = rootAddress[folder]);
 
   rootAddress[folderName] = {};
+  fs.mkdirSync(`./temp/${roomID}/${path}`);
   
   return true;
 };
@@ -81,11 +84,13 @@ exports.getFile = function(roomID, path) {
     fileName = path.substring(path.lastIndexOf("/") + 1);
   }
 
-  let rootAddress = room.files;
-  if (lastFolder !== undefined)
-    lastFolder.split("/").forEach(folder => rootAddress = rootAddress[folder]);
+  // let rootAddress = room.files;
+  // if (lastFolder !== undefined)
+  //   lastFolder.split("/").forEach(folder => rootAddress = rootAddress[folder]);
 
-  return rootAddress[fileName].data;
+  const buffer = fs.readFileSync(`./temp/${roomID}/${path}`);
+
+  return buffer;
 };
 
 // path '/' 이면 root임
@@ -127,6 +132,7 @@ exports.removeFile = function(roomID, path) {
     lastFolder.split("/").forEach(folder => rootAddress = rootAddress[folder]);
 
   delete rootAddress[fileName];
+  fs.unlinkSync(`./temp/${roomID}/${path}`);
 
   return true;
 };
@@ -161,6 +167,7 @@ exports.removeDirectory = function(roomID, path) {
 
   delete rootAddress[folderName];
   delete room.fileIndx[lastFolder ? `${lastFolder}/${folderName}` : folderName];
+  fs.rmSync(`./temp/${roomID}/${path}`, { recursive: true, force: true });
 
   return true;
 };
@@ -173,7 +180,9 @@ exports.removeDirectory = function(roomID, path) {
   console.log(exports.createFile(id, "test.txt", Buffer.from("test")));
   console.log(exports.createDirectory(id, "domiFolder"));
   console.log(exports.createFile(id, "domiFolder/hello.cs", Buffer.from("test!!!")));
+  console.log(exports.createDirectory(id, "testFolder"));
   console.log(exports.createFile(id, "testFolder/hello.cs", Buffer.from("test!!!")));
+  console.log(exports.createFile(id, "testFolder/hello222.cs", Buffer.from("test!!!")));
 
   console.log("---------------");
   console.log(exports.getFile(id, "test.txt"));
@@ -182,7 +191,7 @@ exports.removeDirectory = function(roomID, path) {
   console.log(exports.getFile(id, "hdello.cs"));
 
   console.log("---------------");
-  // console.log(exports.removeFile(id, "testFolder/README.md"));
+  // console.log(exports.removeFile(id, "testFolder/hello222.cs"));
   // console.log(exports.removeDirectory(id, "testFolder"));
 
   console.log(exports.getDirectory(id, "/"));
@@ -191,5 +200,5 @@ exports.removeDirectory = function(roomID, path) {
   console.log(exports.getDirectory(id, "testFolder/hellooooasdad"));
 
 
-  // console.log(room.files, room.fileIndx);
+  console.log(room.files, room.fileIndx);
 })();

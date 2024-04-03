@@ -25,6 +25,7 @@ $(function() {
     $(".code_window").click(function() {
         codeBlock.hide();
     }).find(".box").click(e => e.stopPropagation());
+    $("#class-code-close").click(codeBlock.hide);
 });
 
 domiSocket.addEvent("file.result.preview", function(data) {
@@ -48,7 +49,7 @@ domiSocket.addEvent("file.result.preview", function(data) {
     if (data.content == false) {
         $("#class-code-block").html("이 파일은 바이너리 입니다. (코드가 아닌데숭)");
     } else {
-        $("#class-code-block").attr("class", null).attr("data-highlighted", null).text(data.content);
+        $("#class-code-block").attr("class", fileExt ? `language-${fileExt}` : null).attr("data-highlighted", null).text(data.content);
         hljs.highlightElement($("#class-code-block")[0]);
     }
     codeBlock.show();

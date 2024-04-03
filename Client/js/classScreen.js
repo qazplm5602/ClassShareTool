@@ -14,7 +14,7 @@ domiSocket.addEvent("class.init.result", function(data) {
         $("#class-video")[0].srcObject = screenStream.stream;
         $("#class-video")[0].play();
     } else { // 방장이랑 연결 ㄱㄱ
-        const peer = classScreen.peer = new SimplePeer({ initiator: true });
+        const peer = classScreen.peer = new SimplePeer({ initiator: true, config: { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }, { urls: 'stun:global.stun.twilio.com:3478?transport=udp' }] }, });
         peer.on("signal", data => {
             domiSocket.send("webrtc.owner.signal", data);
         });
@@ -33,7 +33,8 @@ domiSocket.addEvent("webrtc.request.call", function(data) {
     let peer = classScreen.peers[data.id];
     if (peer === undefined) {
         peer = classScreen.peers[data.id] = new SimplePeer({
-            stream: screenStream.stream
+            stream: screenStream.stream,
+            config: { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }, { urls: 'stun:global.stun.twilio.com:3478?transport=udp' }] },
         });
         
         peer.on("signal", signal => {

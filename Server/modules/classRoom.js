@@ -34,6 +34,7 @@ TriggerEvent["file.request.preview"] = function(roomID, playerID, path) {
     if (player === undefined) return;
 
     const fileBuffer = fileSystem.getFile(roomID, path);
+    if (fileBuffer === undefined) return; // 파일이 없음
 
     player.ws.send("file.result.preview", {
         path,

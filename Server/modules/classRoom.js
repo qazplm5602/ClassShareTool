@@ -25,3 +25,13 @@ TriggerEvent["file.request.directory"] = function(roomID, playerID, path) {
     if (files === false) return; // 머임
     player.ws.send("file.directory.result", {path, files});
 }
+
+TriggerEvent["file.request.preview"] = function(roomID, playerID, path) {
+    const room = roomManager.getRoom(roomID);
+    const player = room.players[playerID];
+    
+    if (player === undefined) return;
+
+    const fileData = fileSystem.getFile(roomID, path);
+    console.log(fileData);
+}

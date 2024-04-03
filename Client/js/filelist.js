@@ -29,7 +29,7 @@ $(() => {
             return;
         }
 
-        
+        domiSocket.send("file.request.preview", `${filelist.currentPath === "" ? "" :  `${filelist.currentPath}/`}${name}`);
     });
 });
 

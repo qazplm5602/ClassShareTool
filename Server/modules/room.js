@@ -15,9 +15,9 @@ class RoomClass {
                 data: new ArrayBuffer(2)
             },
             "helloooo": {
-                "c안녕.txt": { data: new ArrayBuffer(2) },
-                "b하세요.txt": { data: new ArrayBuffer(2) },
-                "adomi.lua": { data: new ArrayBuffer(2) },
+                "c안녕.txt": { data: Buffer.from("testtest") },
+                "b하세요.txt": { data: Buffer.from("testtest") },
+                "adomi.lua": { data: Buffer.from("testtest") },
                 "btestfolder": { },
                 "ctestfolder": { },
             }

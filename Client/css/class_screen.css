@@ -145,6 +145,13 @@
     background-color: rgba(255, 255, 255, 0.1);
 }
 
+.class_screen > main > .file_container > .list > .box.folder {
+    background-color: rgba(255, 208, 0, 0.05);
+}
+.class_screen > main > .file_container > .list > .box.folder:hover {
+    background-color: rgba(255, 208, 0, 0.1);
+}
+
 .class_screen > main > .file_container > .list > .box:not(:first-child) {
     margin-top: 5px;
 }
@@ -159,7 +166,7 @@
 .class_screen > main > .file_container > .list > .box > span {
     color: white;
     font-size: 13px;
-
+    
     word-break: break-all;
 }
 

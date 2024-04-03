@@ -68,6 +68,8 @@
     border-radius: 5px;
 
     cursor: pointer;
+
+    transition: background-color 250ms;
 }
 
 .main > .main-code > #main-code-join:disabled {

@@ -44,7 +44,7 @@ wsServer.on("request", (req) => {
 
         const roomID = Number(code);
         if (!roomManager.existRoom(roomID)) {
-            connection.close();
+            connection.close(1000, "방을 찾을 수 없습니다.");
             return;
         }
 

@@ -1,5 +1,12 @@
 $(function() {
-
+    $("#main-code-input").keyup(function() {
+        const code = $(this).val();
+        $("#main-code-join").attr("disabled", code.length < 6);
+    });
+    $("#main-code-join").click(function() {
+        const code = $("#main-code-input").val();
+        roomJoin(code);
+    });
 
 
 
@@ -64,11 +71,21 @@ $(function() {
     //////////////////////////////////////////// 방 입장
     async function roomJoin(id, password) {
         $("#main-loading").fadeIn(250, 'swing');
+        $("#main-error-text").text("");
     
         const response = await domiSocket.connect(id, password);
     
         if (!response.result) {
-            $("#main-error-text").text("서버에 연결할 수 없습니다.");
+            $("#main-loading").fadeOut(250, 'swing');
+            
+            let reason = "서버에 연결할 수 없습니다.";
+            
+            if (response.code === 1000) {
+                if (response.reason === "Normal connection closure") reason = "서버가 연결을 거부하였습니다.";
+                else reason = response.reason;
+            }
+
+            $("#main-error-text").text(reason);
             return;
         }
     

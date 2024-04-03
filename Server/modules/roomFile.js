@@ -1,4 +1,5 @@
 const fs = require("fs");
+const path = require("path");
 const roomManager = require("./room.js");
 
 exports.createFile = function(roomID, path /* 이 경로는 파일이름까지 포함하고 있음 */, buffer) {
@@ -173,7 +174,19 @@ exports.removeDirectory = function(roomID, path) {
 };
 
 // TEST
+// const { isBinary } = require('istextorbinary');
 (function() {
+  // temp폴더 비우기
+  // fs.readdir("./temp", (err, files) => {
+  //   if (err) throw err;
+  
+  //   for (const file of files) {
+  //     fs.unlink(path.join("./temp", file), (err) => {
+  //       if (err) throw err;
+  //     });
+  //   }
+  // });
+
   const [id, password] = roomManager.createRoom();
   const room = roomManager.getRoom(id);
 
@@ -199,6 +212,8 @@ exports.removeDirectory = function(roomID, path) {
   console.log(exports.getDirectory(id, "testFolder/helloooo"));
   console.log(exports.getDirectory(id, "testFolder/hellooooasdad"));
 
+  // console.log(room.files, room.fileIndx);
 
-  console.log(room.files, room.fileIndx);
+  // const fileBuffer = exports.getFile(id, "domiFolder/hello.cs");
+  //   console.log(fileBuffer, isBinary(null, fileBuffer), fileBuffer.byteLength);
 })();

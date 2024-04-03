@@ -1,3 +1,4 @@
+const { isBinary } = require('istextorbinary');
 const roomManager = require("./room.js");
 const fileSystem = require("./roomFile.js");
 
@@ -32,6 +33,12 @@ TriggerEvent["file.request.preview"] = function(roomID, playerID, path) {
     
     if (player === undefined) return;
 
-    const fileData = fileSystem.getFile(roomID, path);
-    console.log(fileData);
+    const fileBuffer = fileSystem.getFile(roomID, path);
+
+    player.ws.send("file.result.preview", {
+        path,
+        content: isBinary(null, fileBuffer) ? false : fileBuffer.toString()
+    });
+
+    // console.log(fileBuffer.byteLength);
 }

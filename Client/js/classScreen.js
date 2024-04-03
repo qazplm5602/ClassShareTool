@@ -1,6 +1,7 @@
 const classScreen = {
     peer: undefined, // 방장과 연결된것
     peers: {}, // 화면 보고있는사람들 (내가 방장일때)
+    peerConfig: { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] }
 }
 
 domiSocket.addEvent("class.init.result", function(data) {
@@ -14,7 +15,7 @@ domiSocket.addEvent("class.init.result", function(data) {
         $("#class-video")[0].srcObject = screenStream.stream;
         $("#class-video")[0].play();
     } else { // 방장이랑 연결 ㄱㄱ
-        const peer = classScreen.peer = new SimplePeer({ initiator: true, config: { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }, { urls: 'stun:global.stun.twilio.com:3478?transport=udp' }] }, });
+        const peer = classScreen.peer = new SimplePeer({ initiator: true, config: classScreen.peerConfig, });
         peer.on("signal", data => {
             domiSocket.send("webrtc.owner.signal", data);
         });
@@ -34,7 +35,7 @@ domiSocket.addEvent("webrtc.request.call", function(data) {
     if (peer === undefined) {
         peer = classScreen.peers[data.id] = new SimplePeer({
             stream: screenStream.stream,
-            config: { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }, { urls: 'stun:global.stun.twilio.com:3478?transport=udp' }] },
+            config: classScreen.peerConfig
         });
         
         peer.on("signal", signal => {

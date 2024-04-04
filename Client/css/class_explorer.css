@@ -13,6 +13,9 @@
 
     padding: 20px;
     box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
 }
 
 .explorer_window > .box > header {
@@ -81,4 +84,70 @@
 
 .explorer_window > .box > header > .buttons > button:hover > span {
     visibility: initial;
+}
+
+.explorer_window > .box > .path {
+    font-size: 15px;
+}
+
+.explorer_window > .box > .path > .slash {
+    color: rgb(167, 167, 167);
+    font-weight: 800;
+}
+
+.explorer_window > .box > main {
+    flex-grow: 1;
+    
+    margin-top: 10px;
+    /* padding: 10px; */
+    box-sizing: border-box;
+
+    /* background-color: rgba(0, 0, 0, 0.05); */
+    border-radius: 8px;
+
+    display: flex;
+    flex-direction: column;
+    
+    gap: 5px 0;
+
+    overflow: auto;
+}
+
+.explorer_window > .box > main > .box {
+    width: 100%;
+    height: 40px;
+
+    padding: 0 10px;
+    box-sizing: border-box;
+
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    cursor: pointer;
+}
+
+.explorer_window > .box > main > .box > .nametag {
+    display: flex;
+    align-items: center;
+}
+
+.explorer_window > .box > main > .box > .nametag > img {
+    width: 20px;
+    height: 20px;
+
+    margin-right: 5px;
+}
+
+.explorer_window > .box > main > .box > .nametag > span {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.explorer_window > .box > main > .box > .size {
+    font-size: 15px;
+    color: gray;
 }

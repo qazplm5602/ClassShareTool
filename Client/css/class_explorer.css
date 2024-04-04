@@ -151,3 +151,137 @@
     font-size: 15px;
     color: gray;
 }
+
+.explorer_window > .box > .upload_main {
+    position: absolute;
+    
+    right: 30px;
+    bottom: 30px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.explorer_window > .box > .upload_main > .window_toggle {
+    padding: 13px;
+    width: max-content;
+    height: max-content;
+
+    border: none;
+    border-radius: 50%;
+    background-color: white;
+
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    
+    cursor: pointer;
+
+    opacity: 0.5;
+    transition: opacity 250ms;
+}
+
+.explorer_window > .box > .upload_main > .window_toggle:hover {
+    opacity: 1;
+}
+
+.explorer_window > .box > .upload_main > .window_toggle.uploading {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% {
+        background-color: white;
+    }
+    50% {
+        background-color: rgb(194, 215, 255);
+    }
+    100% {
+        background-color: white;
+    }
+}
+
+
+.explorer_window > .box > .upload_main > .window_toggle > img {
+    width: 25px;
+    height: 25px;
+
+    display: block;
+}
+
+.explorer_window > .box > .upload_main > .window {
+    position: relative;
+    
+    width: 300px;
+    height: max-content;
+    max-height: 400px;
+
+    background-color: white;
+
+    padding: 10px;
+    box-sizing: border-box;
+    
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+
+    margin-bottom: 15px;
+
+    overflow: auto;
+}
+
+.explorer_window > .box > .upload_main > .window > .box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.explorer_window > .box > .upload_main > .window > .box:not(:first-child) {
+    margin-top: 8px;
+}
+
+.explorer_window > .box > .upload_main > .window > .box:not(:last-child) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    padding-bottom: 5px;
+}
+
+.explorer_window > .box > .upload_main > .window > .box > .left {
+    display: flex;
+    flex-direction: column;
+}
+
+.explorer_window > .box > .upload_main > .window > .box > .left > span:nth-child(1) {
+    font-size: 15px;
+}
+
+.explorer_window > .box > .upload_main > .window > .box > .left > span:nth-child(2) {
+    font-size: 12px;
+    color: gray;
+}
+
+.explorer_window > .box > .upload_main > .window > .box > .right {
+    display: flex;
+    align-items: center;
+}
+
+.explorer_window > .box > .upload_main > .window > .box > .right > span {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.explorer_window > .box > .upload_main > .window > .box > .right > button {
+    padding: 0;
+    margin: 0;
+
+    background-color: transparent;
+    border: none;
+
+    margin-left: 5px;
+
+    cursor: pointer;
+}
+
+.explorer_window > .box > .upload_main > .window > .box > .right > button > img {
+    width: 15px;
+    height: 15px;
+
+    display: block;
+}

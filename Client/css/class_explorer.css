@@ -285,3 +285,38 @@
 
     display: block;
 }
+
+.explorer_window > .context_menu {
+    position: fixed;
+
+    display: flex;
+    flex-direction: column;
+
+    min-width: 130px;
+    width: max-content;
+
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+
+    padding: 10px;
+    box-sizing: border-box;
+
+    /* z-index: 1000; */
+}
+
+.explorer_window > .context_menu > button {
+    padding: 5px 10px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    text-align: left;
+
+    color: black;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.explorer_window > .context_menu > button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}

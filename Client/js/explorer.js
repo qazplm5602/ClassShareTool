@@ -1,5 +1,6 @@
 const explorer = {
     path: "/",
+    waitHandler: undefined,
     
     contextMenu: {
         callback: [],
@@ -22,6 +23,24 @@ const explorer = {
             this.hide();
             this.callback[idx]();
         }
+    },
+
+    show() {
+        if (this.waitHandler) clearTimeout(this.waitHandler);
+        
+        $(".explorer_window").show();
+        this.waitHandler = setTimeout(() => {
+            $(".explorer_window").removeClass("hide");
+        }, 10);
+    },
+
+    hide() {
+        if (this.waitHandler) clearTimeout(this.waitHandler);
+        
+        $(".explorer_window").addClass("hide");
+        this.waitHandler = setTimeout(() => {
+            $(".explorer_window").hide();
+        }, 250);
     }
 }
 
@@ -50,4 +69,31 @@ $(document).on("contextmenu", ".explorer_window > .box > main > .box", function(
 
         }],
     ]);
+});
+
+domiSocket.addEvent("explorer.directory.request", function(data) {
+    $(".explorer_window .path").empty();
+    
+    explorer.path = data.path;
+
+    const pathSplit = data.path.split("/");
+    pathSplit.forEach((v, i) => $(".explorer_window .path").append(`<span>${v}</span>${(pathSplit.length - 1 === i ? "" : "<span>/</span>")}`));
+
+    $(".explorer_window > .box > main").empty();
+
+    ////////////////////////////////
+    /*
+        {
+            name: "domi.js",
+            directory: false,
+            size: 12345,
+        }
+        {
+            name: "testFolder",
+            directory: true,
+            size: 10, // 폴더일때는 파일 갯수
+        }
+    */
+
+    
 });

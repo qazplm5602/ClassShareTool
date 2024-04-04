@@ -1,3 +1,11 @@
+.explorer_window {
+    transition: opacity 250ms;
+}
+
+.explorer_window.hide {
+    opacity: 0;
+}
+
 .explorer_window > .box {
     position: absolute;
 
@@ -16,6 +24,12 @@
 
     display: flex;
     flex-direction: column;
+
+    transition: transform 250ms;
+}
+
+.explorer_window.hide > .box {
+    transform: translate(-50%, -50%) scale(0.8);
 }
 
 .explorer_window > .box > header {

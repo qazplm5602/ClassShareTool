@@ -75,7 +75,15 @@ $(document).on("contextmenu", ".explorer_window > .box > main > .box", function(
 
     if (!directory) return; // 일단 폴더만 지원
 
-    domiSocket.send("explorer.directory.request", (explorer.path === "/") ? name : `${explorer.path}/${name}`);
+    let path = (explorer.path === "/") ? name : `${explorer.path}/${name}`;
+    if (name === "../") {
+        if (explorer.path.includes("/")) {
+            const split = explorer.path.split("/");
+            path = split.splice(0, split.length - 1).join("/");
+        } else path = "/";
+    }
+
+    domiSocket.send("explorer.directory.request", path);
 });
 
 domiSocket.addEvent("explorer.directory.result", function(data) {
@@ -107,6 +115,17 @@ domiSocket.addEvent("explorer.directory.result", function(data) {
         if (!a.directory && b.directory) return 1;
         return a.name.localeCompare(b.name);
     });
+
+    if (data.path !== "/") {
+        $(".explorer_window main").append(`
+            <section data-name="../" data-directory=true class="box">
+                <div class="nametag">
+                    <img src="./assets/extIco/b_folder.svg">
+                    <span>../</span>
+                </div>
+            </section>
+        `);
+    }
 
     $.each(data.files, function(_, v) {
         let fileIcon = "b_folder";

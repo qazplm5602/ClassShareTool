@@ -126,6 +126,11 @@
     gap: 5px 0;
 
     overflow: auto;
+    transition: box-shadow 250ms;
+}
+
+.explorer_window > .box > main.draged {
+    box-shadow: 0 0 20px rgb(119, 194, 84);
 }
 
 .explorer_window > .box > main > .box {

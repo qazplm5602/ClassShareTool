@@ -56,6 +56,26 @@ $(function() {
             ["새 폴더", () => {}]
         ]);
     });
+
+    const eventDisabled = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    $(".explorer_window > .box > main").on("dragenter", function(e) {
+        eventDisabled(e);
+        $(".explorer_window main").addClass("draged");
+    }).on("dragleave", function(e) {
+        eventDisabled(e);
+        $(".explorer_window main").removeClass("draged");
+    }).on("dragover", eventDisabled).on("drop", function(e) {
+        eventDisabled(e);
+        $(".explorer_window main").removeClass("draged");
+
+        console.log(e.originalEvent.dataTransfer);
+        console.log(e.originalEvent.dataTransfer.files.length);
+        console.log(e.originalEvent.dataTransfer.files[0]);
+        console.log("drop");
+    });
 });
 
 $(document).on("contextmenu", ".explorer_window > .box > main > .box", function(e) {

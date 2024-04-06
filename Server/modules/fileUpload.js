@@ -32,7 +32,7 @@ express.get("/api/file/create", function(req, res) {
         return;
     }
 
-    if (room.path !== "/" && room.fileIndx[path] !== 1) {
+    if (path !== "/" && room.fileIndx[path] !== 1) {
         res.sendStatus(400);
         return;
     }
@@ -46,11 +46,10 @@ express.get("/api/file/create", function(req, res) {
         process: {}
     }
 
-    for (let i = 0; i < Math.ceil(size / SPLIT_SIZE); i++) {
-        process[i] = false;
+    for (let i = 1; i <= Math.ceil(size / SPLIT_SIZE); i++) {
+        fileQueue[token].process[i] = false;
     }
 
-    console.log(process);
     res.send(token);
 });
 

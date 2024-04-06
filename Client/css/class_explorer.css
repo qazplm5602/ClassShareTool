@@ -107,6 +107,7 @@
 .explorer_window > .box > .path > .slash {
     color: rgb(167, 167, 167);
     font-weight: 800;
+    padding: 0 4px;
 }
 
 .explorer_window > .box > main {

@@ -69,15 +69,22 @@ $(document).on("contextmenu", ".explorer_window > .box > main > .box", function(
 
         }],
     ]);
+}).on("click", ".explorer_window > .box > main > .box", function() {
+    const name = $(this).data("name");
+    const directory = $(this).data("directory");
+
+    if (!directory) return; // 일단 폴더만 지원
+
+    domiSocket.send("explorer.directory.request", (explorer.path === "/") ? name : `${explorer.path}/${name}`);
 });
 
-domiSocket.addEvent("explorer.directory.request", function(data) {
+domiSocket.addEvent("explorer.directory.result", function(data) {
     $(".explorer_window .path").empty();
     
     explorer.path = data.path;
 
     const pathSplit = data.path.split("/");
-    pathSplit.forEach((v, i) => $(".explorer_window .path").append(`<span>${v}</span>${(pathSplit.length - 1 === i ? "" : "<span>/</span>")}`));
+    pathSplit.forEach((v, i) => $(".explorer_window .path").append(`<span>${v}</span>${(pathSplit.length - 1 === i ? "" : "<span class='slash'>/</span>")}`));
 
     $(".explorer_window > .box > main").empty();
 
@@ -95,5 +102,24 @@ domiSocket.addEvent("explorer.directory.request", function(data) {
         }
     */
 
+    data.files = data.files.sort((a, b) => {
+        if (a.directory && !b.directory) return -1;
+        if (!a.directory && b.directory) return 1;
+        return a.name.localeCompare(b.name);
+    });
+
+    $.each(data.files, function(_, v) {
+        let fileIcon = "b_folder";
+
+        $(".explorer_window main").append(`
+            <section data-name="${v.name}" data-directory=${v.directory} class="box">
+                <div class="nametag">
+                    <img src="./assets/extIco/${fileIcon}.svg">
+                    <span>${v.name}</span>
+                </div>
     
+                <span class="size">${v.size}${(v.directory ? "개" : "MB")}</span>
+            </section>
+        `);
+    });
 });

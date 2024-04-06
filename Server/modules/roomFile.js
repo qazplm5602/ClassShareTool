@@ -94,6 +94,25 @@ exports.getFile = function(roomID, path) {
   return buffer;
 };
 
+exports.getFileData = function(roomID, path) {
+  const room = roomManager.getRoom(roomID);
+  if (room === undefined || room.fileIndx[path] !== 0) return;
+
+  let lastFolder;
+  let fileName = path;
+
+  if (path.lastIndexOf("/") !== -1) {
+    lastFolder = path.substring(0, path.lastIndexOf("/"));
+    fileName = path.substring(path.lastIndexOf("/") + 1);
+  }
+
+  let rootAddress = room.files;
+  if (lastFolder !== undefined)
+    lastFolder.split("/").forEach(folder => rootAddress = rootAddress[folder]);
+
+  return rootAddress[fileName];
+}
+
 // path '/' 이면 root임
 exports.getDirectory = function(roomID, path) {
   const room = roomManager.getRoom(roomID);
@@ -175,45 +194,45 @@ exports.removeDirectory = function(roomID, path) {
 
 // TEST
 // const { isBinary } = require('istextorbinary');
-(function() {
-  // temp폴더 비우기
-  // fs.readdir("./temp", (err, files) => {
-  //   if (err) throw err;
+// (function() {
+//   // temp폴더 비우기
+//   // fs.readdir("./temp", (err, files) => {
+//   //   if (err) throw err;
   
-  //   for (const file of files) {
-  //     fs.unlink(path.join("./temp", file), (err) => {
-  //       if (err) throw err;
-  //     });
-  //   }
-  // });
+//   //   for (const file of files) {
+//   //     fs.unlink(path.join("./temp", file), (err) => {
+//   //       if (err) throw err;
+//   //     });
+//   //   }
+//   // });
 
-  const [id, password] = roomManager.createRoom();
-  const room = roomManager.getRoom(id);
+//   const [id, password] = roomManager.createRoom();
+//   const room = roomManager.getRoom(id);
 
-  console.log(exports.createFile(id, "test.txt", Buffer.from("test")));
-  console.log(exports.createDirectory(id, "domiFolder"));
-  console.log(exports.createFile(id, "domiFolder/hello.cs", Buffer.from("test!!!")));
-  console.log(exports.createDirectory(id, "testFolder"));
-  console.log(exports.createFile(id, "testFolder/hello.cs", Buffer.from("test!!!")));
-  console.log(exports.createFile(id, "testFolder/hello222.cs", Buffer.from("test!!!")));
+//   console.log(exports.createFile(id, "test.txt", Buffer.from("test")));
+//   console.log(exports.createDirectory(id, "domiFolder"));
+//   console.log(exports.createFile(id, "domiFolder/hello.cs", Buffer.from("test!!!")));
+//   console.log(exports.createDirectory(id, "testFolder"));
+//   console.log(exports.createFile(id, "testFolder/hello.cs", Buffer.from("test!!!")));
+//   console.log(exports.createFile(id, "testFolder/hello222.cs", Buffer.from("test!!!")));
 
-  console.log("---------------");
-  console.log(exports.getFile(id, "test.txt"));
-  console.log(exports.getFile(id, "domiFolder/hello.cs"));
-  console.log(exports.getFile(id, "domiFolder/hdello.cs"));
-  console.log(exports.getFile(id, "hdello.cs"));
+//   console.log("---------------");
+//   console.log(exports.getFile(id, "test.txt"));
+//   console.log(exports.getFile(id, "domiFolder/hello.cs"));
+//   console.log(exports.getFile(id, "domiFolder/hdello.cs"));
+//   console.log(exports.getFile(id, "hdello.cs"));
 
-  console.log("---------------");
-  // console.log(exports.removeFile(id, "testFolder/hello222.cs"));
-  // console.log(exports.removeDirectory(id, "testFolder"));
+//   console.log("---------------");
+//   // console.log(exports.removeFile(id, "testFolder/hello222.cs"));
+//   // console.log(exports.removeDirectory(id, "testFolder"));
 
-  console.log(exports.getDirectory(id, "/"));
-  console.log(exports.getDirectory(id, "testFolder"));
-  console.log(exports.getDirectory(id, "testFolder/helloooo"));
-  console.log(exports.getDirectory(id, "testFolder/hellooooasdad"));
+//   console.log(exports.getDirectory(id, "/"));
+//   console.log(exports.getDirectory(id, "testFolder"));
+//   console.log(exports.getDirectory(id, "testFolder/helloooo"));
+//   console.log(exports.getDirectory(id, "testFolder/hellooooasdad"));
 
-  // console.log(room.files, room.fileIndx);
+//   // console.log(room.files, room.fileIndx);
 
-  // const fileBuffer = exports.getFile(id, "domiFolder/hello.cs");
-  //   console.log(fileBuffer, isBinary(null, fileBuffer), fileBuffer.byteLength);
-})();
+//   // const fileBuffer = exports.getFile(id, "domiFolder/hello.cs");
+//   //   console.log(fileBuffer, isBinary(null, fileBuffer), fileBuffer.byteLength);
+// })();

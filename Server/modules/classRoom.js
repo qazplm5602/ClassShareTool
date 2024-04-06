@@ -43,3 +43,38 @@ TriggerEvent["file.request.preview"] = function(roomID, playerID, path) {
 
     // console.log(fileBuffer.byteLength);
 }
+
+//////// admin 파일
+TriggerEvent["explorer.directory.request"] = function(roomID, playerID, path) {
+    const room = roomManager.getRoom(roomID);
+    const player = room.players[playerID];
+    
+    if (player === undefined || room.ownerId !== playerID) return;
+
+    const files = fileSystem.getDirectory(roomID, path);
+    if (files === false) return; // 머임
+
+    files.map(value => {
+        let file = 0;
+        let directory = 0;
+        const file_path = (path === "/" ? value.name : `${path}/${value.name}`);
+
+        if (value.directory) {
+            const list = fileSystem.getDirectory(roomID, file_path);
+            if (list)
+                list.forEach(({directory: isFolder}) => {
+                    if (isFolder) directory++;
+                    else file++;
+                });
+
+            value.size = [file,directory];
+        } else {
+            const data = fileSystem.getFileData(roomID, file_path);
+            value.size = data.size;
+        }
+
+        return value;
+    });
+
+    player.ws.send("explorer.directory.result", {path, files});
+}

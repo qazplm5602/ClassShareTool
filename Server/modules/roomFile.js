@@ -31,8 +31,12 @@ exports.createFile = function(roomID, path /* 이 경로는 파일이름까지 �
   
   rootAddress[fileName] = {
     // data: buffer
+    size: buffer.length
   }
   fs.writeFileSync(`./temp/${roomID}/${path}`, buffer);
+  
+  // 전체에게 변경사항 알림
+  Object.values(room.players).forEach(({ws}) => ws.send("file.directory.update", (filePath || "/")));
 
   return true;
 };
@@ -62,6 +66,9 @@ exports.createDirectory = function(roomID, path) {
 
   rootAddress[folderName] = {};
   fs.mkdirSync(`./temp/${roomID}/${path}`);
+  
+  // 전체에게 변경사항 알림
+  Object.values(room.players).forEach(({ws}) => ws.send("file.directory.update", (lastFolder || "/")));
   
   return true;
 };

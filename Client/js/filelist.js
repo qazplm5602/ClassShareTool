@@ -76,3 +76,13 @@ domiSocket.addEvent("file.directory.result", function(data) {
       </div>`);
     });
 });
+
+// 변경사항
+domiSocket.addEvent("file.directory.update", function(path) {
+    if (filelist.currentPath === (path === "/" ? "" : path)) {
+        domiSocket.send("file.request.directory", path);
+    }
+    if (explorer.path === path && $(".explorer_window").css("display") !== "none") {
+        domiSocket.send("explorer.directory.request", explorer.path);
+    }
+});

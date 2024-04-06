@@ -35,6 +35,7 @@ class RoomClass {
         // "testFolder/helloooo/btestfolder": 1,
         // "testFolder/helloooo/ctestfolder": 1,
     };
+    fileUploads = new Set(); // 대기중인 파일 토큰 있음
 
     constructor(id) {
         this.id = id;

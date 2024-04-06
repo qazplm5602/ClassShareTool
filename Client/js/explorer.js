@@ -71,10 +71,7 @@ $(function() {
         eventDisabled(e);
         $(".explorer_window main").removeClass("draged");
 
-        console.log(e.originalEvent.dataTransfer);
-        console.log(e.originalEvent.dataTransfer.files.length);
-        console.log(e.originalEvent.dataTransfer.files);
-        console.log("drop");
+        explorer.fileUpload(e.originalEvent.dataTransfer.files);
     });
 
     $("#explorer-upload").click(function() {
@@ -82,7 +79,7 @@ $(function() {
     });
 
     $("#explorer-file-input").change(function(e) {
-        console.log(e.target.files);
+        explorer.fileUpload(e.target.files);
     });
 });
 

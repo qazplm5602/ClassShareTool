@@ -130,12 +130,12 @@
                     <div class="title">파일 관리자</div>
                     
                     <section class="buttons">
-                        <button>
-                            <img src="./assets/close.svg">
+                        <button id="explorer-upload">
+                            <img src="./assets/upload.svg">
                             <span>업로드</span>
                         </button>
 
-                        <button>
+                        <button id="explorer-close">
                             <img src="./assets/close.svg">
                             <span>닫기</span>
                         </button>
@@ -172,6 +172,7 @@
 
                 </main>
 
+                <input type="file" style="display: none;" multiple="multiple" id="explorer-file-input">
                 <section class="upload_main">
                     <section class="window">
                         <div class="box">

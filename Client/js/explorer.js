@@ -73,8 +73,16 @@ $(function() {
 
         console.log(e.originalEvent.dataTransfer);
         console.log(e.originalEvent.dataTransfer.files.length);
-        console.log(e.originalEvent.dataTransfer.files[0]);
+        console.log(e.originalEvent.dataTransfer.files);
         console.log("drop");
+    });
+
+    $("#explorer-upload").click(function() {
+        $("#explorer-file-input").trigger("click");
+    });
+
+    $("#explorer-file-input").change(function(e) {
+        console.log(e.target.files);
     });
 });
 

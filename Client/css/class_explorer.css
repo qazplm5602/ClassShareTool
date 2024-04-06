@@ -69,12 +69,14 @@
 }
 
 .explorer_window > .box > header > .buttons > button > img {
-    filter: invert(1);
-
     width: 25px;
     height: 25px;
 
     display: block;
+}
+
+#explorer-close > img {
+    filter: invert(1);
 }
 
 .explorer_window > .box > header > .buttons > button > span {

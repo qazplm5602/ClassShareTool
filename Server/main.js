@@ -3,6 +3,8 @@ const websocket = require("websocket");
 
 global.TriggerEvent = {};
 const app = global.express = express();
+app.use(express.raw({limit: '5mb'}));
+app.use(express.json());
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "http://127.0.0.1:5500");
     res.header("Access-Control-Allow-Headers", "GET, POST, PUT");

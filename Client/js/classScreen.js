@@ -1,7 +1,9 @@
 const classScreen = {
     peer: undefined, // 방장과 연결된것
     peers: {}, // 화면 보고있는사람들 (내가 방장일때)
-    peerConfig: { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] }
+    peerConfig: { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] },
+    roomID: -1,
+    password: undefined
 }
 
 domiSocket.addEvent("class.init.result", function(data) {

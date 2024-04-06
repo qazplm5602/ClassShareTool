@@ -142,7 +142,7 @@ async function SuccessUpload(token) {
     if (info === undefined) return;
     
     if (buffers.length > 1) {
-        Buffer.concat(buffers);
+        buffers = Buffer.concat(buffers);
     } else buffers = buffers[0];
 
     fileManager.createFile(info.room, (info.path === "/" ? info.name : `${info.path}/${info.name}`), buffers);

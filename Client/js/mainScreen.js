@@ -89,6 +89,8 @@ $(function() {
             return;
         }
     
+        classScreen.password = password;
+        classScreen.roomID = id;
         domiSocket.send("class.init");
     }
 });

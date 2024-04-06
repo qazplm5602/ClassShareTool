@@ -153,6 +153,9 @@ async function SuccessUpload(token) {
     if (room === undefined) return;
 
     room.fileUploads.delete(token);
+
+    const player = room.players[room.ownerId];
+    player.ws.send("explorer.upload.success", token);
 }
 
 exports.clearFile = function(token) {

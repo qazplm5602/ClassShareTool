@@ -167,3 +167,7 @@ domiSocket.addEvent("explorer.directory.result", function(data) {
         `);
     });
 });
+
+domiSocket.addEvent("explorer.upload.success", function(handle) {
+    $(`#explorer-upload-progress-${handle}`).remove();
+});

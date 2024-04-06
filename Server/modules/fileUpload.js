@@ -155,3 +155,16 @@ async function SuccessUpload(token) {
     room.fileUploads.delete(token);
 }
 
+exports.clearFile = function(token) {
+    const info = fileQueue[token];
+    if (info === undefined) return;
+    
+    delete fileQueue[token];
+
+    for (let i = 0; i < Math.ceil(info.size / SPLIT_SIZE); i++) {
+        const path = `./temp/uploads/${token}-${i}`;
+
+        if (fs.existsSync(path))
+            fs.unlink(path, () => {});
+    }
+}

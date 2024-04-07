@@ -56,8 +56,22 @@ domiSocket.eventInit = function() {
         callback(data.data);
     }
 
-    this.ws.onclose = function() {
+    this.ws.onclose = function(event) {
         console.log("socket closed");
+
+        mainScreen.reset();
+
+        let reason = "서버와 연결이 끊어졌습니다.";
+        if (event.code === 1000)
+            reason = event.reason === "Normal connection closure" ? "서버가 연결을 끊었습니다." : event.reason;
+    
+        $("#main-error-text").text(reason);
+
+        // classScreen 초기화
+        classScreen.reset();
+
+        $(".class_screen").hide();
+        mainScreen.show();
     }
 
     this.ws.onerror = function() {
@@ -75,6 +89,13 @@ domiSocket.eventInit = function() {
 
 domiSocket.send = function(type, data) {
     if (this.ws === undefined) throw new Error("socket이 연결되어 있지 않습니다.");
-
+    
     this.ws.send(JSON.stringify({type, data}));
+}
+
+domiSocket.close = function() {
+    if (this.ws === undefined) throw new Error("socket이 연결되어 있지 않습니다.");
+    
+    this.ws.close();
+    this.ws = undefined;
 }

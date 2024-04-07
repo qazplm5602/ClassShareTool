@@ -3,8 +3,29 @@ const classScreen = {
     peers: {}, // 화면 보고있는사람들 (내가 방장일때)
     peerConfig: { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] },
     roomID: -1,
-    password: undefined
+    password: undefined,
+    
+    reset: function() {
+        if (this.peer) {
+            this.peer.destroy();
+            this.peer = undefined;
+        }
+        Object.values(this.peers).forEach(peer => peer.destroy());
+        this.peers = {};
+        this.roomID = -1;
+        this.password = undefined;
+
+        explorer.path = undefined;
+        explorer.hide();
+        codeBlock.hide();
+    }
 }
+
+$(function() {
+    $("#class-exit-button").click(function() {
+        domiSocket.close();
+    });
+});
 
 domiSocket.addEvent("class.init.result", function(data) {
     console.log("class.init.result", data);
@@ -29,7 +50,9 @@ domiSocket.addEvent("class.init.result", function(data) {
     $("#class-explorer-button").toggle(data.owner);
 
     domiSocket.send("file.request.directory", "/");
-    $(".class_screen").fadeIn(300);
+    $(".class_screen").fadeIn(300, function() {
+        $("#main_screen").hide();
+    });
 });
 
 // 보는사람 -> owner
@@ -52,4 +75,9 @@ domiSocket.addEvent("webrtc.request.call", function(data) {
 // owner -> 보는사람 한명
 domiSocket.addEvent("webrtc.request.owner", function(signal) {
     classScreen.peer.signal(signal);
+});
+
+domiSocket.addEvent("webrtc.disconnect.player", function(id) {
+    classScreen.peers[id]?.destroy();
+    delete classScreen.peers[id];
 });

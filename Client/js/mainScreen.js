@@ -1,3 +1,15 @@
+const mainScreen = {
+    reset: function() { // 처음 화면으로 돌려줌
+        $("#main-loading").hide();
+        $("#main-camera-view-close").trigger("click");
+        $("#main-error-text").empty();
+        $("#main-code-join").val("").attr("disabled", true);
+    },
+    show: function() {
+        $("#main_screen").show();
+    }
+};
+
 $(function() {
     $("#main-code-input").keyup(function() {
         const code = $(this).val();
@@ -33,6 +45,7 @@ $(function() {
         $("#main-camera-view > .box").addClass("hide");
         $("#main-camera-view").fadeOut(250, 'swing');
         screenStream.destory();
+        onScreenDisable();
         screenStream.removeDisableEvent(onScreenDisable);
     });
     $("#main-camera-view-create").click(function() {

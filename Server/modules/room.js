@@ -81,6 +81,15 @@ exports.removePlayer = function(roomID, playerID) {
     if (room === undefined) return false;
 
     delete room.players[playerID];
+    
+    // 주인장임
+    if (room.ownerId === playerID) {
+        
+    } else {
+        const owner = room.players[room.ownerId];
+        owner.ws.send("webrtc.disconnect.player", playerID);
+    }
+
     return true;
 }
 

@@ -26,6 +26,7 @@ domiSocket.addEvent("class.init.result", function(data) {
             $("#class-video")[0].play();
         });
     }
+    $("#class-explorer-button").toggle(data.owner);
 
     domiSocket.send("file.request.directory", "/");
     $(".class_screen").fadeIn(300);

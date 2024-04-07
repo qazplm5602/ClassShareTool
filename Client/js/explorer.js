@@ -1,5 +1,5 @@
 const explorer = {
-    path: "/",
+    path: undefined,
     waitHandler: undefined,
     
     contextMenu: {
@@ -26,6 +26,7 @@ const explorer = {
     },
 
     show() {
+        if (this.path === undefined) domiSocket.send("explorer.directory.request", "/");
         if (this.waitHandler) clearTimeout(this.waitHandler);
         
         $(".explorer_window").show();
@@ -81,6 +82,9 @@ $(function() {
     $("#explorer-file-input").change(function(e) {
         explorer.fileUpload(e.target.files);
     });
+
+    $("#class-explorer-button").click(explorer.show);
+    $("#explorer-close").click(explorer.hide);
 });
 
 $(document).on("contextmenu", ".explorer_window > .box > main > .box", function(e) {

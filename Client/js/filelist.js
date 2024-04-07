@@ -82,7 +82,7 @@ domiSocket.addEvent("file.directory.update", function(path) {
     if (filelist.currentPath === (path === "/" ? "" : path)) {
         domiSocket.send("file.request.directory", path);
     }
-    if (explorer.path === path && $(".explorer_window").css("display") !== "none") {
+    if (explorer.path === path) {
         domiSocket.send("explorer.directory.request", explorer.path);
     }
 });

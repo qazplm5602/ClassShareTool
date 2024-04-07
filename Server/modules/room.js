@@ -1,4 +1,5 @@
 const fs = require("fs");
+const fileUpload = require("./fileUpload.js");
 class RoomClass {
     id = undefined;
     password = undefined;
@@ -55,6 +56,18 @@ exports.createRoom = function() {
     return [id, room.password];
 }
 
+exports.destroyRoom = function(roomID, reason = "방이 삭제되었습니다.") {
+    const room = exports.getRoom(roomID);
+    if (room === undefined) return;
+    
+    Object.values(room.players).forEach(p => p.ws.close(1000, reason));
+    room.fileUploads.forEach(token => fileUpload.clearFile(token));
+
+    fs.rm(`./temp/${roomID}`, { recursive: true, force: true }, () => {});
+
+    delete rooms[roomID];
+}
+
 exports.getRoom = function(id) {
     return rooms[id];
 }
@@ -84,7 +97,7 @@ exports.removePlayer = function(roomID, playerID) {
     
     // 주인장임
     if (room.ownerId === playerID) {
-        
+        exports.destroyRoom(roomID, "센세님이 나가셨습니다.");
     } else {
         const owner = room.players[room.ownerId];
         owner.ws.send("webrtc.disconnect.player", playerID);

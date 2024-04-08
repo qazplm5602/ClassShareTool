@@ -113,10 +113,10 @@ $(function() {
         const code = urlParams.get('code');
         
         if (code === null || code.length < 6 || isNaN(Number(code))) return;
-        // roomJoin(Number(code));
+        roomJoin(Number(code));
         // window.location.search = "";
 
-        $("#main-code-input").val(code).trigger("keyup");
+        // $("#main-code-input").val(code).trigger("keyup");
     }
     checkQuqeryCode();
 });

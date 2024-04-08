@@ -106,4 +106,16 @@ $(function() {
         classScreen.roomID = id;
         domiSocket.send("class.init");
     }
+
+    // 자동 입장
+    function checkQuqeryCode() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get('code');
+        
+        if (code === null || code.length < 6 || isNaN(Number(code))) return;
+        roomJoin(Number(code));
+
+        // window.location.search = "";
+    }
+    checkQuqeryCode();
 });

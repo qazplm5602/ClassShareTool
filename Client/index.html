@@ -18,6 +18,7 @@
     <script src="./js/filelist.js"></script>
     <script src="./js/explorer.js"></script>
     <script src="./js/fileupload.js"></script>
+    <script src="./js/notify.js"></script>
 
     <!-- Code Style -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
@@ -30,6 +31,7 @@
     <link rel="stylesheet" href="./css/main_screen.css">
     <link rel="stylesheet" href="./css/class_screen.css">
     <link rel="stylesheet" href="./css/class_explorer.css">
+    <link rel="stylesheet" href="./css/class_notify.css">
     <link rel="stylesheet" href="./css/loading.css">
 
     <title>domi 수업도구</title>
@@ -77,7 +79,7 @@
         </div>
     </section>
 
-    <section class="class_screen" style="display: none;">
+    <section class="class_screen" style="display: ;">
         <header>
             <div class="left">
                 <img class="logo" src="https://domi.kr/img/domi_logo.png">
@@ -163,6 +165,21 @@
                 <button>이름변경</button>
                 <button>삭제</button>
             </section>
+        </div>
+
+        <div class="notify_window backBlack">
+            <div class="box">
+                <h1 class="title">안내</h1>
+                
+                <main>
+                    아무 콘텐츠 내용...
+                </main>
+
+                <section class="buttons">
+                    <button>밍</button>
+                    <button>확인</button>
+                </section>
+            </div>
         </div>
     </section>
 </body>

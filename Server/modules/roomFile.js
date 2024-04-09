@@ -49,7 +49,8 @@ exports.createDirectory = function(roomID, path) {
   let lastFolder;
 
   if (path.lastIndexOf("/") !== -1) {
-    lastFolder = path.substring(path.lastIndexOf("/"));
+    lastFolder = path.substring(0, path.lastIndexOf("/"));
+    folderName = path.substring(path.lastIndexOf("/") + 1)
   }
 
   // 폴더가 없음

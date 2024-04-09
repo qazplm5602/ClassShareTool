@@ -78,3 +78,12 @@ TriggerEvent["explorer.directory.request"] = function(roomID, playerID, path) {
 
     player.ws.send("explorer.directory.result", {path, files});
 }
+
+TriggerEvent["explorer.directory.create"] = function(roomID, playerID, data) {
+    const room = roomManager.getRoom(roomID);
+    const player = room.players[playerID];
+    
+    if (player === undefined || room.ownerId !== playerID || typeof(data) !== "object" || data.path === undefined || typeof(data.name) !== "string" || data.name.length === 0) return;
+
+    fileSystem.createDirectory(roomID, `${(data.path === '/' ? '' : `${data.path}/`)}${data.name}`);
+}

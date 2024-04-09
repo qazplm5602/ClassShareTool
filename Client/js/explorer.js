@@ -42,6 +42,23 @@ const explorer = {
         this.waitHandler = setTimeout(() => {
             $(".explorer_window").hide();
         }, 250);
+    },
+
+    createFolder: function() {
+        const currentPath = explorer.path; // 바뀔지도
+
+        notify.show("폴더 생성", `<section style="display: flex; flex-direction: column; padding: 20px 0;">
+        <span>폴더 이름을 입력하세요.</span>
+        <input id="folder-name-input" type="text" placeholder="폴더 이름" />
+        </section>`, [
+            ["생성", () => {
+                const name = $("#folder-name-input").val();
+
+                notify.close();
+                domiSocket.send("explorer.directory.create", { path: currentPath, name });
+            }],
+            ["취소", notify.close]
+        ]);
     }
 }
 
@@ -54,7 +71,7 @@ $(function() {
     $(".explorer_window > .box > main").contextmenu(function(e) {
         e.preventDefault();
         explorer.contextMenu.show({x: e.pageX, y: e.pageY}, [
-            ["새 폴더", () => {}]
+            ["새 폴더", explorer.createFolder]
         ]);
     });
 

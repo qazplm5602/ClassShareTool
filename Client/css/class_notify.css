@@ -10,7 +10,8 @@
     position: absolute;
     
     width: 600px;
-    height: 150px;
+    min-height: 150px;
+    height: max-content;
 
     top: 50%;
     left: 50%;
@@ -49,11 +50,24 @@
     flex-grow: 1;
 }
 
+.notify_window > .box > main input {
+    padding: 5px 8px;
+    border-radius: 5px;
+    
+    border: none;
+    outline: none;
+
+    font-size: 16px;
+    
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
 .notify_window > .box > .buttons {
     margin-top: 5px;
     
     display: flex;
-    flex-direction: row-reverse;
+    /* flex-direction: row-reverse; */
+    justify-content: flex-end;
     gap: 0 5px;
 }
 
@@ -73,4 +87,13 @@
 
 .notify_window > .box > .buttons > button:hover {
     background-color: rgba(0, 0, 0, 0.1);
+}
+
+#folder-name-input {
+    width: 400px;
+    margin: 5px 0;
+}
+
+#folder-name-input::placeholder {
+    font-size: 13px;
 }

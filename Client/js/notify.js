@@ -20,6 +20,7 @@ const notify = {
     },
     close: function() {
         if (this.waitHandler) clearTimeout(this.waitHandler);
+        this.callback = {};
         
         $(".notify_window").addClass("hide");
         this.waitHandler = setTimeout(() => {

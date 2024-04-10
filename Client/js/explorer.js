@@ -18,14 +18,16 @@ const explorer = {
         },
         hide: function() {
             $(".explorer_window .context_menu").hide();
+            this.callback = [];
         },
         click: function(idx) {
-            this.hide();
             this.callback[idx]();
+            this.hide();
         }
     },
 
     show() {
+        console.log(this);
         if (this.path === undefined) domiSocket.send("explorer.directory.request", "/");
         if (this.waitHandler) clearTimeout(this.waitHandler);
         
@@ -100,19 +102,27 @@ $(function() {
         explorer.fileUpload(e.target.files);
     });
 
-    $("#class-explorer-button").click(explorer.show);
-    $("#explorer-close").click(explorer.hide);
+    $("#class-explorer-button").click(() => explorer.show());
+    $("#explorer-close").click(() => explorer.hide());
 });
 
 $(document).on("contextmenu", ".explorer_window > .box > main > .box", function(e) {
+    const name = $(this).data("name");
+    
     e.preventDefault();
+    e.stopPropagation();
+    if (name === "../") return;
 
+    const currnetPath = explorer.path;
     explorer.contextMenu.show({x: e.pageX, y: e.pageY}, [
         ["이름 변경", function() {
             
         }],
         ["삭제", function() {
+            let backPath = `${currnetPath}/`;
+            if (backPath === "//") backPath = "";
 
+            domiSocket.send("explorer.file.delete", `${backPath}${name}`);
         }],
     ]);
 }).on("click", ".explorer_window > .box > main > .box", function() {

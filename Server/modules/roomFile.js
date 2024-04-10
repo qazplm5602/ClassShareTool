@@ -162,6 +162,9 @@ exports.removeFile = function(roomID, path) {
   delete rootAddress[fileName];
   fs.unlinkSync(`./temp/${roomID}/${path}`);
 
+  // 전체에게 변경사항 알림
+  Object.values(room.players).forEach(({ws}) => ws.send("file.directory.update", (lastFolder || "/")));
+
   return true;
 };
 

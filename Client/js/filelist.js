@@ -79,6 +79,35 @@ domiSocket.addEvent("file.directory.result", function(data) {
 
 // 변경사항
 domiSocket.addEvent("file.directory.update", function(path) {
+    if (typeof path === "object" && path[1]) {
+        const deletedFolder = path[2]; // 만약 path[0]이 root면 사용가능
+        path = path[0];
+        
+        // if (path !== "/") { // 이건 그냥 루트자너
+            let updateFolders = path.split("/");
+            const nowFolders = filelist.currentPath.split("/");
+
+            if (path === "/")
+                updateFolders = [deletedFolder];
+    
+            console.log("nowFolders", filelist.currentPath, nowFolders);
+            console.log("updateFolders", path, updateFolders);
+
+            if (nowFolders.length > updateFolders.length || path === "/") {
+                let both = true;
+                updateFolders.forEach((folder, i) => {
+                    if (folder !== nowFolders[i]) {
+                        both = false;
+                        return false;
+                    }
+                });
+
+                if (both) // 삭제된 경로 뒤로
+                    domiSocket.send("file.request.directory", path);
+            }
+        // }
+    }
+
     if (filelist.currentPath === (path === "/" ? "" : path)) {
         domiSocket.send("file.request.directory", path);
     }

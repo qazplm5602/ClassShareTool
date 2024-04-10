@@ -87,3 +87,24 @@ TriggerEvent["explorer.directory.create"] = function(roomID, playerID, data) {
 
     fileSystem.createDirectory(roomID, `${(data.path === '/' ? '' : `${data.path}/`)}${data.name}`);
 }
+
+TriggerEvent["explorer.file.delete"] = function(roomID, playerID, path) {
+    const room = roomManager.getRoom(roomID);
+    const player = room.players[playerID];
+
+    if (player === undefined || room.ownerId !== playerID || typeof(path) !== "string") return;
+
+    const isDirectory = room.fileIndx[path];
+    if (isDirectory === undefined) return; // 그냥 파일이 없음
+
+    if (isDirectory) {
+        fileSystem.removeDirectory(roomID, path);
+
+        // 전체에게 변경사항 알림 ( removeDirectory는 재귀함수라 여러번 호출 방지 )
+        let lastFolder;
+        if (path.includes("/"))
+            lastFolder = path.substring(0, path.lastIndexOf('/'));
+
+        Object.values(room.players).forEach(({ws}) => ws.send("file.directory.update", [lastFolder || "/", true /* 경로 추적 */, path]));
+    } else fileSystem.removeFile(roomID, path);
+}

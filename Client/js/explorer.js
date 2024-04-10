@@ -121,7 +121,7 @@ $(document).on("contextmenu", ".explorer_window > .box > main > .box", function(
 
             notify.show("이름 변경", `<section style="display: flex; flex-direction: column; padding: 20px 0;">
             <span>변경할 파일이름을 입력하세요.</span>
-            <input id="folder-name-input" type="text" placeholder="새로운 파일 이름" />
+            <input id="folder-name-input" type="text" value="${name}" placeholder="새로운 파일 이름" />
             </section>`, [
                 ["변경", () => {
                     const changeName = $("#folder-name-input").val();

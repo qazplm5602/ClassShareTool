@@ -210,11 +210,32 @@ exports.renameFile = function(roomID, path, name) {
   let lastFolder;
   if (path.includes('/')) {
     const lastSlash = path.lastIndexOf('/');
-    lastFolder = path.substring(0, lastSlash + 1);
-    fileName = path.substring(lastSlash);
+    lastFolder = path.substring(0, lastSlash);
+    fileName = path.substring(lastSlash + 1);
   }
 
-  // ....
+  let rootAddress = room.files;
+
+  if (lastFolder !== undefined)
+    lastFolder.split("/").forEach(folder => rootAddress = rootAddress[folder]);
+
+  const metadata = rootAddress[fileName];
+  delete rootAddress[fileName];
+  
+  rootAddress[name] = metadata;
+
+  const newPath = `${(lastFolder === undefined ? '' : `${lastFolder}/`)}${name}`;
+  delete room.fileIndx[path];
+  room.fileIndx[newPath] = 0;
+
+  fs.renameSync(`./temp/${roomID}/${path}`, `./temp/${roomID}/${newPath}`);
+
+  console.log(room.files, room.fileIndx);
+
+  // 전체에게 변경사항 알림
+  Object.values(room.players).forEach(({ws}) => ws.send("file.directory.update", (lastFolder || "/")));
+
+  return true;
 }
 
 // TEST

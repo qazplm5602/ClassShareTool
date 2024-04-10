@@ -202,6 +202,20 @@ exports.removeDirectory = function(roomID, path) {
 
   return true;
 };
+exports.renameFile = function(roomID, path, name) {
+  const room = roomManager.getRoom(roomID);
+  if (room === undefined || room.fileIndx[path] !== 0) return false;
+
+  let fileName = path;
+  let lastFolder;
+  if (path.includes('/')) {
+    const lastSlash = path.lastIndexOf('/');
+    lastFolder = path.substring(0, lastSlash + 1);
+    fileName = path.substring(lastSlash);
+  }
+
+  // ....
+}
 
 // TEST
 // const { isBinary } = require('istextorbinary');

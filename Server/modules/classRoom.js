@@ -108,3 +108,19 @@ TriggerEvent["explorer.file.delete"] = function(roomID, playerID, path) {
         Object.values(room.players).forEach(({ws}) => ws.send("file.directory.update", [lastFolder || "/", true /* 경로 추적 */, path]));
     } else fileSystem.removeFile(roomID, path);
 }
+
+TriggerEvent["explorer.file.rename"] = function(roomID, playerID, data) {
+    const room = roomManager.getRoom(roomID);
+    const player = room.players[playerID];
+
+    if (player === undefined || room.ownerId !== playerID || typeof(data) !== "object" || data.path === undefined || data.name === undefined) return;
+
+    const isDirectory = room.fileIndx[data.path];
+    if (isDirectory === undefined) return; // 그냥 파일이 없음
+
+    if (isDirectory) {
+        
+    } else {
+        fileSystem.renameFile(roomID, data.path, data.name);
+    }
+}

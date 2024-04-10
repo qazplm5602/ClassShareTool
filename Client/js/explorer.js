@@ -116,7 +116,24 @@ $(document).on("contextmenu", ".explorer_window > .box > main > .box", function(
     const currnetPath = explorer.path;
     explorer.contextMenu.show({x: e.pageX, y: e.pageY}, [
         ["이름 변경", function() {
-            
+            let backPath = `${currnetPath}/`;
+            if (backPath === "//") backPath = "";
+
+            notify.show("이름 변경", `<section style="display: flex; flex-direction: column; padding: 20px 0;">
+            <span>변경할 파일이름을 입력하세요.</span>
+            <input id="folder-name-input" type="text" placeholder="새로운 파일 이름" />
+            </section>`, [
+                ["변경", () => {
+                    const changeName = $("#folder-name-input").val();
+    
+                    notify.close();
+                    domiSocket.send("explorer.file.rename", {
+                        path: `${backPath}${name}`,
+                        name: changeName
+                    });
+                }],
+                ["취소", notify.close]
+            ]);
         }],
         ["삭제", function() {
             let backPath = `${currnetPath}/`;

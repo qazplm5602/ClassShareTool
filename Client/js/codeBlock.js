@@ -47,7 +47,7 @@ domiSocket.addEvent("file.result.preview", function(data) {
     $(".code_window header .title").text(`파일: ${fileName}`);
 
     if (data.content == false) {
-        $("#class-code-block").html("이 파일은 바이너리 입니다. (코드가 아닌데숭)");
+        $("#class-code-block").attr("class", "hljs").html("이 파일은 바이너리 입니다. (코드가 아닌데숭)");
     } else {
         $("#class-code-block").attr("class", fileExt ? `language-${fileExt}` : null).attr("data-highlighted", null).text(data.content);
         hljs.highlightElement($("#class-code-block")[0]);

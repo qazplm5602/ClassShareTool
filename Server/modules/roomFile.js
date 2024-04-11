@@ -230,8 +230,6 @@ exports.renameFile = function(roomID, path, name) {
 
   fs.renameSync(`./temp/${roomID}/${path}`, `./temp/${roomID}/${newPath}`);
 
-  console.log(room.files, room.fileIndx);
-
   // 전체에게 변경사항 알림
   Object.values(room.players).forEach(({ws}) => ws.send("file.directory.update", (lastFolder || "/")));
 

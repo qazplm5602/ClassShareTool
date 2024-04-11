@@ -44,6 +44,26 @@ TriggerEvent["file.request.preview"] = function(roomID, playerID, path) {
     // console.log(fileBuffer.byteLength);
 }
 
+TriggerEvent["file.request.download"] = function(roomID, playerID, path) {
+    const room = roomManager.getRoom(roomID);
+    const player = room.players[playerID];
+    
+    if (player === undefined) return;
+    
+    const fileBuffer = fileSystem.getFile(roomID, path);
+    if (fileBuffer === undefined) return;
+
+    let fileName = path;
+    if (path.includes("/")) {
+        fileName = path.substring(path.lastIndexOf('/') + 1);
+    }
+
+    player.ws.send("file.result.download", {
+        name: fileName,
+        buffer: fileBuffer
+    });
+}
+
 //////// admin 파일
 TriggerEvent["explorer.directory.request"] = function(roomID, playerID, path) {
     const room = roomManager.getRoom(roomID);

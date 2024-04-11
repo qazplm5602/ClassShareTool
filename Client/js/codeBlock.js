@@ -26,6 +26,10 @@ $(function() {
         codeBlock.hide();
     }).find(".box").click(e => e.stopPropagation());
     $("#class-code-close").click(codeBlock.hide);
+
+    $("#class-code-download").click(function() {
+        domiSocket.send("file.request.download", codeBlock.path);
+    });
 });
 
 domiSocket.addEvent("file.result.preview", function(data) {
@@ -53,4 +57,18 @@ domiSocket.addEvent("file.result.preview", function(data) {
         hljs.highlightElement($("#class-code-block")[0]);
     }
     codeBlock.show();
+});
+
+domiSocket.addEvent("file.result.download", function(data) {
+    // console.log(data.buffer);
+    console.log(data.buffer.data);
+    const buffer = new Uint8Array(data.buffer.data).buffer;
+
+    // const blob = new Blob([data.buffer], {type: "text/javascript"});
+    const blob = new Blob([buffer]);
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = data.name; // 다운로드될 파일명 설정
+
+    a.click();
 });

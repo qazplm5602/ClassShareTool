@@ -104,6 +104,10 @@ $(function() {
 
     $("#class-explorer-button").click(() => explorer.show());
     $("#explorer-close").click(() => explorer.hide());
+
+    $(".explorer_window .upload_main .window_toggle").click(function() {
+        $(".explorer_window .upload_main .window").toggle();
+    });
 });
 
 $(document).on("contextmenu", ".explorer_window > .box > main > .box", function(e) {
@@ -218,4 +222,7 @@ domiSocket.addEvent("explorer.directory.result", function(data) {
 
 domiSocket.addEvent("explorer.upload.success", function(handle) {
     $(`#explorer-upload-progress-${handle}`).remove();
+
+    if ($(".explorer_window .upload_main > .window").children().length == 0)
+        $(".explorer_window .upload_main .window_toggle").removeClass("uploading");
 });

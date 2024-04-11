@@ -29,6 +29,7 @@ explorer.fileUploadStart = async function(file) {
     const uploadHandle = await fetch(`${_CONFIG.api}api/file/create?${new URLSearchParams(query)}`).then(v => v.text());
     const reader = new FileReader();
     
+    $(".explorer_window .upload_main .window_toggle").addClass("uploading");
     $(".explorer_window .upload_main > .window").append(`
         <div class="box" id="explorer-upload-progress-${uploadHandle}">
             <div class="left">
@@ -38,7 +39,7 @@ explorer.fileUploadStart = async function(file) {
 
             <div class="right">
                 <span>파일 읽는중...</span>
-                <button><img src="./assets/cancel.svg"></button>
+                <!-- <button><img src="./assets/cancel.svg"></button> -->
             </div>
         </div>
     `);

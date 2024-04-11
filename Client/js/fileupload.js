@@ -3,6 +3,16 @@ explorer.fileUpload = function(files) {
 
     for (let i = 0; i < files.length; i++) {
         const file = files[i];
+        if (file.size > _CONFIG.upload_max_size) {
+            notify.show("파일 업로드 실패", `${file.name} 파일이 너무 큽니다. (최대 1GB)`, [
+                ["확인", notify.close]
+            ]);
+            return;
+        }
+    }
+
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
         
         // 크기 검사
         // 이미 있는 파일인지 검사

@@ -70,7 +70,7 @@ TriggerEvent["explorer.directory.request"] = function(roomID, playerID, path) {
             value.size = [file,directory];
         } else {
             const data = fileSystem.getFileData(roomID, file_path);
-            value.size = data.size;
+            value.size = Math.ceil(data.size / 1024);
         }
 
         return value;

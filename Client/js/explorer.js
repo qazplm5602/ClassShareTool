@@ -61,6 +61,10 @@ const explorer = {
             }],
             ["취소", notify.close]
         ]);
+    },
+
+    numberComma: function(num) {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 }
 
@@ -214,7 +218,7 @@ domiSocket.addEvent("explorer.directory.result", function(data) {
                     <span>${v.name}</span>
                 </div>
     
-                <span class="size">${v.size}${(v.directory ? "개" : "MB")}</span>
+                <span class="size">${v.directory ? `파일 ${v.size[0]} 폴더 ${v.size[1]}` : `${explorer.numberComma(v.size)}KB`}</span>
             </section>
         `);
     });

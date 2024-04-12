@@ -4,6 +4,8 @@ WebSocket + WebRTC를 이용한 수업도구 입니다.
 > https://ggm.domi.kr/class
 > 에서 사용할 수 있습니다.
 
+<img src="./preview.png" />
+
 </br>
 
 ### 기술 스택
